@@ -128,10 +128,14 @@ var myTeam = {
 
 // logo Image
 
+var logoAnchor = document.createElement("a");
 var logoImage = document.createElement("img");
+logoAnchor.setAttribute("href", "#")
 logoImage.setAttribute("src", myTeam.logoUrl);
+logoImage.setAttribute("alt", "logoImg");
+logoAnchor.appendChild(logoImage);
 var myHeader = document.querySelector("header");
-myHeader.appendChild(logoImage);
+myHeader.appendChild(logoAnchor);
 
 // main heading
 
@@ -208,7 +212,7 @@ function generateMyTeam(){
 	for (var i = 0; i < firstSquadNumbers.length; i++) {
 
 		firstSquad.innerHTML += "<article>\
-		<img src=" + myTeam.players[firstSquadNumbers[i]].imageUrl + ">\
+		<img src=" + myTeam.players[firstSquadNumbers[i]].imageUrl + " alt= 'playerImg'>\
 		<span>Name: <strong>" + myTeam.players[firstSquadNumbers[i]].name + "</strong></span>\
 		<span>Last name: <strong>" + myTeam.players[firstSquadNumbers[i]].lastName + "</strong></span>\
 		<span>Number: <strong>" + myTeam.players[firstSquadNumbers[i]].number + "</strong></span>\
@@ -221,7 +225,7 @@ function generateMyTeam(){
 	for (var i = 0; i < reserveNumbers.length; i++) {
 
 		reservePlayers.innerHTML += "<article>\
-		<img src=" + myTeam.players[reserveNumbers[i]].imageUrl + ">\
+		<img src=" + myTeam.players[reserveNumbers[i]].imageUrl + " alt= 'playerImg'>\
 		<span>Name: <strong>" + myTeam.players[reserveNumbers[i]].name + "</strong></span>\
 		<span>Last name: <strong>" + myTeam.players[reserveNumbers[i]].lastName + "</strong></span>\
 		<span>Number: <strong>" + myTeam.players[reserveNumbers[i]].number + "</strong></span>\
@@ -298,6 +302,7 @@ setInterval(()=>substitution(),60000);
 // function genImg(someNumber){
 // 	var someImage = document.createElement("img");
 // 	someImage.setAttribute("src", myTeam.players[someNumber].imageUrl);
+//  someImage.setAttribute("alt", "playerImg");
 // 	return someImage;
 // }
 
