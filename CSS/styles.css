@@ -4,27 +4,12 @@
 
 body {
 	background-color: #d9cfd9;
-    margin: 0 auto;
-    padding: 0;
-    width: 1400px;
 }
 
-header {
-    background-color: #8c8686;
-    padding: 5px;
-    margin: 0 20px 50px;
-    border-radius: 0 0 10px 10px;
-    box-shadow: 2px 2px 5px;
-}
-
-header a {
-    display: block;
-}
-
-header a img {
+header img {
 	display: block;
-	width: 70px;
-	margin: 5px;
+	width: 100px;
+	margin: 20px;
 }
 
 main h1 {

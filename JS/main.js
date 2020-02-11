@@ -1,5 +1,5 @@
 
-var myTeam = {
+const myTeam = {
 	name : "Kovar's Northwood Team",
 	logoUrl : "./images/logo.png",
 	players: [
@@ -128,53 +128,50 @@ var myTeam = {
 
 // logo Image
 
-var logoAnchor = document.createElement("a");
-var logoImage = document.createElement("img");
-logoAnchor.setAttribute("href", "#")
-logoImage.setAttribute("src", myTeam.logoUrl);
-logoImage.setAttribute("alt", "logoImg");
-logoAnchor.appendChild(logoImage);
-var myHeader = document.querySelector("header");
-myHeader.appendChild(logoAnchor);
+const {logoUrl} = myTeam;
+const logoImage = document.createElement("img");
+logoImage.setAttribute("src", logoUrl);
+const myHeader = document.querySelector("header");
+myHeader.appendChild(logoImage);
 
 // main heading
 
-var mainContent = document.querySelector("main");
-var mainHeading = document.createElement("h1");
-mainHeading.textContent = myTeam.name;
+const {name} = myTeam;
+const mainContent = document.querySelector("main");
+const mainHeading = document.createElement("h1");
+mainHeading.textContent = name;
 mainContent.prepend(mainHeading);
 
 // heading for first squad
 
-var firstSquadHeading = document.createElement("h3");
+const firstSquadHeading = document.createElement("h3");
 firstSquadHeading.textContent = "First-squad players";
 mainHeading.after(firstSquadHeading);
 
 // first squad section
 
-var firstSquad = document.createElement("section");
+const firstSquad = document.createElement("section");
 firstSquad.setAttribute("id","first-squad");
 firstSquadHeading.after(firstSquad);
 
 // reserve playes heading
 
-var reservePlayersHeading = document.createElement("h3");
+const reservePlayersHeading = document.createElement("h3");
 reservePlayersHeading.textContent = "Reserve players";
 firstSquad.after(reservePlayersHeading);
 
 // reserve players section
 
-var reservePlayers = document.createElement("section");
+const reservePlayers = document.createElement("section");
 reservePlayers.setAttribute("id","reserve-players");
 reservePlayersHeading.after(reservePlayers);
 
 
-function generateFirstSquad(){
+const generateFirstSquad = ()=> {
 
-	var num = [];
-	var i = 0;
+	let num = [], i = 0;
 	while(num.length < 11){
-		var randNum = Math.floor(Math.random()*myTeam.players.length);
+		let randNum = Math.floor(Math.random()*myTeam.players.length);
 		if(!num.includes(randNum)){
 			num[i] = randNum;
 			i++;
@@ -184,12 +181,11 @@ function generateFirstSquad(){
 	return num;
 }
 
-function generateReservePlayers(someArray) {
+const generateReservePlayers = someArray => {
 
-	var k = 0;
-	var reserve = [];
-
-	for (var i = 0; i < myTeam.players.length; i++) {
+	let k = 0, reserve = [];
+	
+	for (let i = 0; i < myTeam.players.length; i++) {
 		if (!someArray.includes(i)) {
 			reserve[k] = i;
 			k++;
@@ -201,37 +197,39 @@ function generateReservePlayers(someArray) {
 
 // easier code
 
-var firstSquadNumbers = generateFirstSquad();
-var reserveNumbers = generateReservePlayers(firstSquadNumbers);
+const firstSquadNumbers = generateFirstSquad();
+const reserveNumbers = generateReservePlayers(firstSquadNumbers);
 
-function generateMyTeam(){
+const generateMyTeam = ()=> {
 
 	firstSquad.innerHTML = "";
 	reservePlayers.innerHTML = "";
 
-	for (var i = 0; i < firstSquadNumbers.length; i++) {
+	for (let i = 0; i < firstSquadNumbers.length; i++) {
 
-		firstSquad.innerHTML += "<article>\
-		<img src=" + myTeam.players[firstSquadNumbers[i]].imageUrl + " alt= 'playerImg'>\
-		<span>Name: <strong>" + myTeam.players[firstSquadNumbers[i]].name + "</strong></span>\
-		<span>Last name: <strong>" + myTeam.players[firstSquadNumbers[i]].lastName + "</strong></span>\
-		<span>Number: <strong>" + myTeam.players[firstSquadNumbers[i]].number + "</strong></span>\
-		<span>Position: <strong>" + myTeam.players[firstSquadNumbers[i]].position + "</strong></span>\
-		<span>Age: <strong>" + myTeam.players[firstSquadNumbers[i]].age + "</strong></span>\
-		</article>";
+		let {imageUrl, name, lastName, number, position, age} = myTeam.players[firstSquadNumbers[i]];
+		firstSquad.innerHTML += `<article>
+		<img src="${imageUrl}">
+		<span>Name: <strong>${name}</strong></span>
+		<span>Last name: <strong>${lastName}</strong></span>
+		<span>Number: <strong>${number}</strong></span>
+		<span>Position: <strong>${position}</strong></span>
+		<span>Age: <strong>${age}</strong></span>
+		</article>`;
 
 	}
 
-	for (var i = 0; i < reserveNumbers.length; i++) {
+	for (let i = 0; i < reserveNumbers.length; i++) {
 
-		reservePlayers.innerHTML += "<article>\
-		<img src=" + myTeam.players[reserveNumbers[i]].imageUrl + " alt= 'playerImg'>\
-		<span>Name: <strong>" + myTeam.players[reserveNumbers[i]].name + "</strong></span>\
-		<span>Last name: <strong>" + myTeam.players[reserveNumbers[i]].lastName + "</strong></span>\
-		<span>Number: <strong>" + myTeam.players[reserveNumbers[i]].number + "</strong></span>\
-		<span>Position: <strong>" + myTeam.players[reserveNumbers[i]].position + "</strong></span>\
-		<span>Age: <strong>" + myTeam.players[reserveNumbers[i]].age + "</strong></span>\
-		</article>";
+		let {imageUrl, name, lastName, number, position, age} = myTeam.players[reserveNumbers[i]];
+		reservePlayers.innerHTML += `<article>
+		<img src="${imageUrl}">
+		<span>Name: <strong>${name}</strong></span>
+		<span>Last name: <strong>${lastName}</strong></span>
+		<span>Number: <strong>${number}</strong></span>
+		<span>Position: <strong>${position}</strong></span>
+		<span>Age: <strong>${age}</strong></span>
+		</article>`;
 
 	}
 
@@ -239,11 +237,11 @@ function generateMyTeam(){
 
 generateMyTeam();
 
-function substitution(){
+const substitution = ()=> {
 
-	var randIndexFirst = Math.floor(Math.random() * firstSquadNumbers.length);
-	var randIndexReserve = Math.floor(Math.random() * reserveNumbers.length);
-	var temp;
+	let randIndexFirst = Math.floor(Math.random() * firstSquadNumbers.length);
+	let randIndexReserve = Math.floor(Math.random() * reserveNumbers.length);
+	let temp;
 	temp = firstSquadNumbers[randIndexFirst];
 	firstSquadNumbers[randIndexFirst] = reserveNumbers[randIndexReserve];
 	reserveNumbers[randIndexReserve] = temp;
@@ -251,7 +249,7 @@ function substitution(){
 	generateMyTeam();
 }
 
-setInterval(()=>substitution(),60000);
+setInterval(substitution, 60000);
 
 // end of easier code
 
@@ -262,34 +260,35 @@ setInterval(()=>substitution(),60000);
 
 // PURE JS
 
-// function genElement(someNumber,someProperty){
+// const genElement = (someNumber, someProperty) => {
 
-// 	var someSpan = document.createElement("span");
-// 	var someStrong = document.createElement("strong");
-
+// 	let someSpan = document.createElement("span");
+// 	let someStrong = document.createElement("strong");
+// 	let {name, lastName, number, position, age} = myTeam.players[someNumber];
+	
 // 	switch(someProperty) {
 // 		case "name" : {
-// 			someStrong.textContent = myTeam.players[someNumber].name;
+// 			someStrong.textContent = name;
 // 			someSpan.innerHTML = "Name: ";
 // 			break;
 // 		}
 // 		case "lastname" : {
-// 			someStrong.textContent = myTeam.players[someNumber].lastName;
+// 			someStrong.textContent = lastName;
 // 			someSpan.innerHTML = "Last name: ";
 // 			break;
 // 		}
 // 		case "number" : {
-// 			someStrong.textContent = myTeam.players[someNumber].number;
+// 			someStrong.textContent =number;
 // 			someSpan.innerHTML = "Number: ";
 // 			break;
 // 		}
 // 		case "position" : {
-// 			someStrong.textContent = myTeam.players[someNumber].position;
+// 			someStrong.textContent = position;
 // 			someSpan.innerHTML = "Position: ";
 // 			break;
 // 		}
 // 		case "age" : {
-// 			someStrong.textContent = myTeam.players[someNumber].age;
+// 			someStrong.textContent = age;
 // 			someSpan.innerHTML = "Age: ";
 // 			break;
 // 		}
@@ -299,68 +298,62 @@ setInterval(()=>substitution(),60000);
 // 	return someSpan;
 // }
 
-// function genImg(someNumber){
-// 	var someImage = document.createElement("img");
+// const genImg = someNumber => {
+// 	let someImage = document.createElement("img");
 // 	someImage.setAttribute("src", myTeam.players[someNumber].imageUrl);
-//  someImage.setAttribute("alt", "playerImg");
 // 	return someImage;
 // }
 
-// function genArticle(someImage, someName, someLastName, someNumber, somePosition, someAge){
+// const genArticle = (...theArgs) => {
 
-// 	var someArticle = document.createElement("article");
-// 	someArticle.appendChild(someImage);
-// 	someArticle.appendChild(someName);
-// 	someArticle.appendChild(someLastName);
-// 	someArticle.appendChild(someNumber);
-// 	someArticle.appendChild(somePosition);
-// 	someArticle.appendChild(someAge);
+// 	let someArticle = document.createElement("article");
+// 	theArgs.forEach(element => someArticle.appendChild(element));
+
 // 	return someArticle;
 // }
 
-// var firstSquadNumbers = generateFirstSquad();
-// var reserveNumbers = generateReservePlayers(firstSquadNumbers);
+// let firstSquadNumbers = generateFirstSquad();
+// let reserveNumbers = generateReservePlayers(firstSquadNumbers);
 
-// function generateMyTeamHarder(){
+// const generateMyTeamHarder = () => {
 
 // 	firstSquad.innerHTML = "";
 // 	reservePlayers.innerHTML = "";
 
-// 	for (var i = 0; i < firstSquadNumbers.length; i++) {
+// 	for (let i = 0; i < firstSquadNumbers.length; i++) {
 
-// 		var myName = genElement(firstSquadNumbers[i],"name");
-// 		var myLastName = genElement(firstSquadNumbers[i], "lastname");
-// 		var myNum = genElement(firstSquadNumbers[i], "number");
-// 		var myPos = genElement(firstSquadNumbers[i], "position");
-// 		var myAge = genElement(firstSquadNumbers[i], "age");
-// 		var myImg = genImg(firstSquadNumbers[i]);
-
-// 		var myArticle = genArticle(myImg, myName, myLastName, myNum, myPos, myAge);
+// 		let myName = genElement(firstSquadNumbers[i],"name");
+// 		let myLastName = genElement(firstSquadNumbers[i], "lastname");
+// 		let myNum = genElement(firstSquadNumbers[i], "number");
+// 		let myPos = genElement(firstSquadNumbers[i], "position");
+// 		let myAge = genElement(firstSquadNumbers[i], "age");
+// 		let myImg = genImg(firstSquadNumbers[i]);
+// 		let myArticle = genArticle(myImg, myName, myLastName, myNum, myPos, myAge);
 
 // 		firstSquad.appendChild(myArticle)
 // 	}
 
-// 	for (var i = 0; i < reserveNumbers.length; i++) {
+// 	for (let i = 0; i < reserveNumbers.length; i++) {
 		
-// 		var myName = genElement(reserveNumbers[i], "name");
-// 		var myLastName = genElement(reserveNumbers[i], "lastname");
-// 		var myNum = genElement(reserveNumbers[i], "number");
-// 		var myPos = genElement(reserveNumbers[i], "position");
-// 		var myAge = genElement(reserveNumbers[i], "age");
-// 		var myImg = genImg(reserveNumbers[i]);
+// 		let myName = genElement(reserveNumbers[i], "name");
+// 		let myLastName = genElement(reserveNumbers[i], "lastname");
+// 		let myNum = genElement(reserveNumbers[i], "number");
+// 		let myPos = genElement(reserveNumbers[i], "position");
+// 		let myAge = genElement(reserveNumbers[i], "age");
+// 		let myImg = genImg(reserveNumbers[i]);
 
-// 		var myArticle = genArticle(myImg, myName, myLastName, myNum, myPos, myAge);
+// 		let myArticle = genArticle(myImg, myName, myLastName, myNum, myPos, myAge);
 
 // 		reservePlayers.appendChild(myArticle)
 // 	}
 
 // }
 
-// function substitution(){
+// const substitution = () => {
 
-// 	var randIndexFirst = Math.floor(Math.random() * firstSquadNumbers.length);
-// 	var randIndexReserve = Math.floor(Math.random() * reserveNumbers.length);
-// 	var temp;
+// 	let randIndexFirst = Math.floor(Math.random() * firstSquadNumbers.length);
+// 	let randIndexReserve = Math.floor(Math.random() * reserveNumbers.length);
+// 	let temp;
 // 	temp = firstSquadNumbers[randIndexFirst];
 // 	firstSquadNumbers[randIndexFirst] = reserveNumbers[randIndexReserve];
 // 	reserveNumbers[randIndexReserve] = temp;
@@ -370,7 +363,7 @@ setInterval(()=>substitution(),60000);
 
 // generateMyTeamHarder();
 
-// setInterval(()=>substitution(),60000);
+// setInterval(substitution, 60000);
 
 // end of PURE JS
 
